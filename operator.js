@@ -32,6 +32,6 @@ module.exports = class Operator {
     //   add destination to elevators destination
     //     skip if elevator cannot add trip bc of service
     // allow elevators to travel one floor
-    //
+    this.elevators.forEach(el => el.advance())
   }
 }
