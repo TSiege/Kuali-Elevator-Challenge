@@ -25,6 +25,9 @@
 // destinations should be array of floor numbers not one
 // must remove desintation once it arrives at floor
 // needs to know direction
+const UP = 'up'
+const DOWN = 'down'
+
 module.exports = class Elevator {
   get needsMaintenance() {
     return this.tripCount === this.maxFloor
@@ -39,7 +42,10 @@ module.exports = class Elevator {
     return this.floorDestinations
   }
   get floorsPassed() {
-    return this.floorsPassed
+    return this.floorsPassedCount
+  }
+  get currentDirectio() {
+    this.direction
   }
   // setters
   openDoors() {
@@ -49,7 +55,8 @@ module.exports = class Elevator {
     return this.doorsOpen = false
   }
   passFloor() {
-    this.floorsPassed += 1
+    this.floor += this.direction === UP ? 1 : -1
+    this.floorsPassedCount += 1
   }
   constructor({
     floor = 1,
@@ -57,7 +64,8 @@ module.exports = class Elevator {
     maxFloor = 100,
     doorsOpen = false,
     floorDestinations = [],
-    floorsPassedCount = 0
+    floorsPassedCount = 0,
+    direction = null
   } = {}) {
     this.floor = floor
     this.tripCount = tripCount
@@ -65,11 +73,25 @@ module.exports = class Elevator {
     this.doorsOpen = doorsOpen
     this.floorDestinations = floorDestinations
     this.floorsPassedCount = floorsPassedCount
+    this.direction = direction
   }
   goToFloor(destination) {
     this.floorDestinations.push(destination)
     if (this.currentFloor === 1) {
       this.openDoors()
+    }
+  }
+  advance() {
+    if (this.areDoorsOpen) {
+      this.closeDoors()
+    }
+    if (this.destinations.length) {
+      if (this.destinations.includes(this.currentFloor)) {
+        this.openDoors()
+        this.destinations = this.destinations.filter(fl => fl !== this.currentFloor)
+        return
+      }
+      this.passFloor()
     }
   }
 }

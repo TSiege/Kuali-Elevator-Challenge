@@ -17,9 +17,24 @@ describe('Elevator', () => {
     elevator.goToFloor(15)
     assert.deepEqual(elevator.destinations, [15])
   })
-  it(`opens it's doors when at the floor for a request and is at ground floor`, ()=> {
+  it(`opens its doors when at the floor for a request and is at ground floor`, ()=> {
     const elevator = new Elevator()
     elevator.goToFloor(15)
     assert.equal(elevator.doorsOpen, true)
+  })
+  describe('#advance', () => {
+    it(`after selecting a floor the elevator and advance is called the elevator closes its doors`, () => {
+      const elevator = new Elevator({})
+      elevator.goToFloor(15)
+      elevator.advance()
+      assert.equal(elevator.doorsOpen, false)
+    })
+    it(`once it progresses to a floor it opens doors and registers one trip`, () => {
+      const elevator = new Elevator({  })
+      elevator.goToFloor(2)
+      elevator.advance()
+      console.log(elevator.currentFloor)
+      assert.equal(elevator.doorsOpen, true)
+    })
   })
 })
