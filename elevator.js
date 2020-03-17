@@ -22,6 +22,9 @@
 // how does the elevator move?
 //   does an elevator go directly to floor?
 //   should it go directly to a floor?
+// destinations should be array of floor numbers not one
+// must remove desintation once it arrives at floor
+// needs to know direction
 export class Elevator {
   // getters
   get tripCount() {
@@ -39,8 +42,11 @@ export class Elevator {
   get currentFloor() {
     return this.floor
   }
-  get destination() {
-    return this.floorDestination
+  get destinations() {
+    return this.floorDestinations
+  }
+  get floorsPassed() {
+    return this.floorsPassed
   }
   // setters
   set openDoors() {
@@ -50,20 +56,25 @@ export class Elevator {
     return this.doorsOpen = false
   }
   set pickDestination(destination) {
-    this.floorDestination = destination
+    this.floorDestinations.push(destination)
+  }
+  set passFloor() {
+    this.floorsPassed += 1
   }
   constructor({
     floor = 1,
     tripCount = 0,
     maxFloor = 100,
     doorsOpen = false,
-    floorDestination = null
+    floorDestinations = [],
+    floorsPassedCount = 0
   }) {
     this.floor = floor
     this.tripCount = tripCount
     this.tripCount = tripCount
     this.maxFloor = maxFloor
     this.doorsOpen = doorsOpen
-    this.floorDestination = floorDestination
+    this.floorDestinations = floorDestinations
+    this.floorsPassedCount = floorsPassedCount
   }
 }

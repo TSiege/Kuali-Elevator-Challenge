@@ -3,7 +3,7 @@
 //  can only ask operator for floors that isn't self
 //  maybe knows its requested another floor?
 
-class Floor {
+export class Floor {
   get availableFloors() {
     return this.floors.filter(fl => this.floorNumber)
   }

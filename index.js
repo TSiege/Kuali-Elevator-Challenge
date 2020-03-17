@@ -10,7 +10,7 @@
 // operator sends elevator to floor,
 // elevator goes to floor
 // needs an event loop of some sort
-class Building {
+export class Building {
   constructor ({ elevatorCount = 4, floors = 20 }) {
 
   }
