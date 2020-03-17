@@ -1,0 +1,3 @@
+--bail
+--require chai/register-assert
+tests/*.test.js
