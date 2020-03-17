@@ -19,8 +19,11 @@
 // How does a user interact with the elevator?
 //   does a user request up down then in elevator as to go to floor?
 //   or is there all floors listed on each floor to go to??
-// does an elevator go directly to floor?
+// how does the elevator move?
+//   does an elevator go directly to floor?
+//   should it go directly to a floor?
 export class Elevator {
+  // getters
   get tripCount() {
     return this.tripCount
   }
@@ -36,24 +39,31 @@ export class Elevator {
   get currentFloor() {
     return this.floor
   }
+  get destination() {
+    return this.floorDestination
+  }
+  // setters
   set openDoors() {
-    this.doorsOpen = true
+    return this.doorsOpen = true
   }
   set closeDoors() {
-    this.doorsOpen = false
+    return this.doorsOpen = false
+  }
+  set pickDestination(destination) {
+    this.floorDestination = destination
   }
   constructor({
     floor = 1,
     tripCount = 0,
     maxFloor = 100,
     doorsOpen = false,
-    destination = null
+    floorDestination = null
   }) {
     this.floor = floor
     this.tripCount = tripCount
     this.tripCount = tripCount
     this.maxFloor = maxFloor
     this.doorsOpen = doorsOpen
-    this.destination = destination
+    this.floorDestination = floorDestination
   }
 }
