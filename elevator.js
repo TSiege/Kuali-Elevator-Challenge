@@ -25,7 +25,7 @@
 // destinations should be array of floor numbers not one
 // must remove desintation once it arrives at floor
 // needs to know direction
-export class Elevator {
+module.exports = class Elevator {
   // getters
   get tripCount() {
     return this.tripCount
@@ -49,17 +49,8 @@ export class Elevator {
     return this.floorsPassed
   }
   // setters
-  set openDoors() {
-    return this.doorsOpen = true
-  }
-  set closeDoors() {
-    return this.doorsOpen = false
-  }
   set pickDestination(destination) {
     this.floorDestinations.push(destination)
-  }
-  set passFloor() {
-    this.floorsPassed += 1
   }
   constructor({
     floor = 1,
@@ -68,7 +59,7 @@ export class Elevator {
     doorsOpen = false,
     floorDestinations = [],
     floorsPassedCount = 0
-  }) {
+  } = {}) {
     this.floor = floor
     this.tripCount = tripCount
     this.tripCount = tripCount
@@ -76,5 +67,14 @@ export class Elevator {
     this.doorsOpen = doorsOpen
     this.floorDestinations = floorDestinations
     this.floorsPassedCount = floorsPassedCount
+  }
+  openDoors() {
+    return this.doorsOpen = true
+  }
+  closeDoors() {
+    return this.doorsOpen = false
+  }
+  passFloor() {
+    this.floorsPassed += 1
   }
 }

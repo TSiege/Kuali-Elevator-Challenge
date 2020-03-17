@@ -19,8 +19,8 @@
 //   divy out floor requests to any elevators
 //   allow elevators to move
 //   how do we find elevator closest to floor?
-export class Operator {
-  constructor({ elevators = [], floors = [], floorRequests = [] }) {
+module.exports = class Operator {
+  constructor({ elevators = [], floors = [], floorRequests = [] } = {}) {
     this.elevators = elevators
     this.floors = floors
     this.floorRequests = floorRequests
