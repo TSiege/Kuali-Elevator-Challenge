@@ -44,8 +44,8 @@ module.exports = class Elevator {
   get floorsPassed() {
     return this.floorsPassedCount
   }
-  get currentDirectio() {
-    this.direction
+  get currentDirectionn() {
+    return this.direction
   }
   // setters
   openDoors() {
@@ -53,10 +53,6 @@ module.exports = class Elevator {
   }
   closeDoors() {
     return this.doorsOpen = false
-  }
-  passFloor() {
-    this.floor += this.direction === UP ? 1 : -1
-    this.floorsPassedCount += 1
   }
   constructor({
     floor = 1,
@@ -76,9 +72,13 @@ module.exports = class Elevator {
     this.direction = direction
   }
   goToFloor(destination) {
+    // needs catch for top floor and min floor
     this.floorDestinations.push(destination)
     if (this.currentFloor === 1) {
       this.openDoors()
+    }
+    if (!this.direction) {
+      this.direction = this.currentFloor < destination ? UP : DOWN
     }
   }
   advance() {
@@ -86,12 +86,28 @@ module.exports = class Elevator {
       this.closeDoors()
     }
     if (this.destinations.length) {
+      this._passFloor()
       if (this.destinations.includes(this.currentFloor)) {
-        this.openDoors()
-        this.destinations = this.destinations.filter(fl => fl !== this.currentFloor)
-        return
+        this._reachedFloor()
       }
-      this.passFloor()
+    }
+  }
+  // private methods
+  _reachedFloor() {
+    this.openDoors()
+    this.floorDestinations = this.floorDestinations.filter(fl => fl !== this.currentFloor)
+    this.tripCount += 1
+    if (!this.destinations.length) {
+      this.goToFloor(1)
+    }
+  }
+  _passFloor() {
+    this.floor += this.direction === UP ? 1 : -1
+    this.floorsPassedCount += 1
+    if (this.floor === 1) {
+      this.direction = UP
+    } else if (this.floor === this.maxFloor) {
+      this.direction = DOWN
     }
   }
 }
