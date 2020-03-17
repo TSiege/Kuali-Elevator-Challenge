@@ -26,13 +26,6 @@
 // must remove desintation once it arrives at floor
 // needs to know direction
 module.exports = class Elevator {
-  // getters
-  get tripCount() {
-    return this.tripCount
-  }
-  get maxFloor() {
-    return this.maxFloor
-  }
   get needsMaintenance() {
     return this.tripCount === this.maxFloor
   }
@@ -49,8 +42,14 @@ module.exports = class Elevator {
     return this.floorsPassed
   }
   // setters
-  set pickDestination(destination) {
-    this.floorDestinations.push(destination)
+  openDoors() {
+    return this.doorsOpen = true
+  }
+  closeDoors() {
+    return this.doorsOpen = false
+  }
+  passFloor() {
+    this.floorsPassed += 1
   }
   constructor({
     floor = 1,
@@ -62,19 +61,15 @@ module.exports = class Elevator {
   } = {}) {
     this.floor = floor
     this.tripCount = tripCount
-    this.tripCount = tripCount
     this.maxFloor = maxFloor
     this.doorsOpen = doorsOpen
     this.floorDestinations = floorDestinations
     this.floorsPassedCount = floorsPassedCount
   }
-  openDoors() {
-    return this.doorsOpen = true
-  }
-  closeDoors() {
-    return this.doorsOpen = false
-  }
-  passFloor() {
-    this.floorsPassed += 1
+  goToFloor(destination) {
+    this.floorDestinations.push(destination)
+    if (this.currentFloor === 1) {
+      this.openDoors()
+    }
   }
 }
