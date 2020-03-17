@@ -36,11 +36,12 @@ describe('Elevator', () => {
       assert.equal(elevator.doorsOpen, true)
       assert.equal(elevator.tripCount, 1)
     })
-    it(`once it reaches a destination it returns to the first floor`, () => {
+    it.only(`once it reaches a destination it returns to the first floor`, () => {
       const elevator = new Elevator({  })
       elevator.goToFloor(2)
       elevator.advance()
       elevator.advance()
+
       assert.equal(elevator.doorsOpen, true)
       assert.equal(elevator.tripCount, 2)
       assert.equal(elevator.currentFloor, 1)

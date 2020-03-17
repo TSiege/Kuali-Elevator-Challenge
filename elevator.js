@@ -98,7 +98,10 @@ module.exports = class Elevator {
     this.floorDestinations = this.floorDestinations.filter(fl => fl !== this.currentFloor)
     this.tripCount += 1
     if (!this.destinations.length) {
-      this.goToFloor(1)
+      this.direction = null
+      if (this.currentFloor !== 1) {
+        this.goToFloor(1)
+      }
     }
   }
   _passFloor() {
